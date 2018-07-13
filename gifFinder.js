@@ -15,7 +15,7 @@ function getTrendingGifs() {
   xhr.onload = function () {
     if (this.status == 200) {
       var gifs = JSON.parse(this.responseText);
-      console.log(gifs.data);
+      console.log(gifs.data[0].images.original.url);
     }
   }
   xhr.send();

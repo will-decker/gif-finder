@@ -14,9 +14,19 @@ function getTrendingGifs() {
 
   xhr.onload = function () {
     if (this.status == 200) {
+
       var gifs = JSON.parse(this.responseText);
-      console.log(gifs.data[0].images.original.url);
+      var output = "";
+
+      console.log(gifs.data.length);
+
+      for (var i = 0; i < gifs.data.length; i++) {
+        console.log(gifs.data[i]);
+        var gifImage = gifs.data[i].images.original.url;
+        output += '<img src="' + gifImage + '">'
+      }
     }
+    document.getElementById('gif_grid').innerHTML = output;
   }
   xhr.send();
 }

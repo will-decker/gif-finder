@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>GIF Finder</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <title>GIF Finder</title>
-</head>
+  <body>
+    <header>
+      <div class="logo">GIF Finder</div>
+      <nav>
+        <form action="#" id="searchForm">
+          <input
+            type="text"
+            placeholder="Search GIFs"
+            value=""
+            id="searchInput"
+          />
+          <input type="submit" value="SEARCH" id="searchBtn" />
+        </form>
+      </nav>
+    </header>
+    <main>
+      <section id="gif_grid"></section>
+    </main>
 
-<body>
-  <header>
-    <div class="logo">GIF Finder</div>
-    <nav>
+    <footer>Coded by Will Decker</footer>
 
-      <form action="#">
-        <input type="text" placeholder="Search GIFs" value="" id="searchInput">
-        <input type="submit" value="SEARCH" id="submitBtn">
-      </form>
-
-    </nav>
-  </header>
-
-  <section id="gif_grid"></section>
-
-  <footer>Coded by Will Decker</footer>
-
-  <script src="gifFinder.js"></script>
-
-</body>
-
+    <script src="gifFinder.js"></script>
+  </body>
 </html>

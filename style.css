@@ -3,6 +3,22 @@
   padding: 0;
 }
 
-#gif-grid {
-  
+main {
+  height: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+#gif_grid {
+  -webkit-columns: 250px 4; /* Chrome, Safari, Opera */
+  -moz-columns: 250px 4; /* Firefox */
+  columns: 250px 4;
+  -webkit-column-gap: 2px; /* Chrome, Safari, Opera */
+  -moz-column-gap: 2px; /* Firefox */
+  column-gap: 2px;
+}
+
+#gif_grid img {
+  width: 100%;
+  margin: -2px 0;
 }

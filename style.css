@@ -3,22 +3,49 @@
   padding: 0;
 }
 
+body {
+  background-color: rgb(3, 3, 97);
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
 main {
   height: 100%;
   max-width: 1040px;
   margin: 0 auto;
 }
 
-#gif_grid {
+#trending {
+  cursor: pointer;
+}
+
+#gif-grid {
   -webkit-columns: 250px 4; /* Chrome, Safari, Opera */
   -moz-columns: 250px 4; /* Firefox */
   columns: 250px 4;
-  -webkit-column-gap: 2px; /* Chrome, Safari, Opera */
-  -moz-column-gap: 2px; /* Firefox */
-  column-gap: 2px;
+  -webkit-column-gap: 6px; /* Chrome, Safari, Opera */
+  -moz-column-gap: 6px; /* Firefox */
+  column-gap: 6px;
 }
 
-#gif_grid img {
+#gif-grid img {
   width: 100%;
-  margin: -2px 0;
+  margin: 2px 0;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  height: 50px;
+  background-color: blueviolet;
+  padding-top: 25px;
 }

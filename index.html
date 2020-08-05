@@ -11,9 +11,11 @@
   <body>
     <header>
       <nav>
-        <div class="logo">GIF Finder</div>
+        <a href="index.html">
+          <div class="logo">GIF Finder</div>
+        </a>
 
-        <form action="#" id="searchForm">
+        <div id="search-container">
           <input
             type="text"
             placeholder="Search GIFs"
@@ -21,16 +23,18 @@
             id="searchInput"
           />
           <input type="submit" value="SEARCH" id="searchBtn" />
-        </form>
+        </div>
         <div id="trending">Trending</div>
       </nav>
     </header>
     <main>
-      <section id="gif-grid"></section>
+      <section>
+        <h2>TRENDING</h2>
+        <div id="gif-grid"></div>
+      </section>
     </main>
 
     <footer>Coded by Will Decker</footer>
-
     <script src="gifFinder.js"></script>
   </body>
 </html>

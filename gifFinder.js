@@ -1,29 +1,47 @@
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
-const searchForm = document.getElementById('searchForm');
 const gifContainer = document.getElementById('gif-grid');
 const trending = document.getElementById('trending');
 
-const apiKey = 'wgMoDU1mKp8t8xdPjuRvigmzMXxnKSyM';
+const apiKey = 'api_key=wgMoDU1mKp8t8xdPjuRvigmzMXxnKSyM';
 let searchTerm = '';
+const limit = 30;
+let paginate = 0;
 const giphyAPI = 'http://api.giphy.com/v1/gifs/';
 const searchEndPoint = `${giphyAPI}search?`;
 const trendingEndPoint = `${giphyAPI}trending?`;
-let searchUrl = searchEndPoint + 'api_key=' + apiKey + '&limit=40&q=';
-let trendingUrl = trendingEndPoint + 'api_key=' + apiKey + '&limit=40';
+let searchUrl = `${searchEndPoint}${apiKey}&limit=${limit}&q=`;
+let trendingUrl = `${trendingEndPoint}${apiKey}&limit=${limit}`;
 
 init();
 
 searchBtn.addEventListener('click', findGIFs);
+searchBox.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    findGIFs();
+  }
+});
+
 trending.addEventListener('click', trendingBtn);
+
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (clientHeight + scrollTop >= scrollHeight - 5) {
+    paginate += limit;
+    getGIFs(`${searchUrl}${searchTerm}&offset=${paginate}`);
+  }
+});
 
 function addGIFToDOM(imgSrc) {
   const GIF = document.createElement('div');
+  GIF.classList.add('gif-block');
   GIF.innerHTML = `<img src="${imgSrc}">`;
   gifContainer.appendChild(GIF);
 }
 
 function getTrendingGIFs() {
+  clearSearch();
   getGIFs(trendingUrl);
 }
 
@@ -44,7 +62,7 @@ function getGIFs(url) {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
 
-  xhr.onload = function() {
+  xhr.onload = function () {
     if (this.status == 200) {
       const dataGIFs = JSON.parse(this.responseText);
 
@@ -55,10 +73,13 @@ function getGIFs(url) {
 }
 
 function clearSearch() {
+  searchTerm = '';
   searchInput.value = '';
 }
 
-function init() {}
+function init() {
+  getTrendingGIFs();
+}
 
 function clearDOM() {
   while (gifContainer.firstChild) {
@@ -72,11 +93,3 @@ function addGIFsToDOM(srcGIFs) {
     addGIFToDOM(imgGIF);
   }
 }
-
-window.addEventListener('scroll', () => {
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-  if (clientHeight + scrollTop >= scrollHeight - 5) {
-    getGIFs(searchUrl + searchTerm + '&offset=41');
-  }
-});

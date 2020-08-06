@@ -22,14 +22,18 @@ searchBox.addEventListener('keypress', function (e) {
   }
 });
 
-trending.addEventListener('click', trendingBtn);
+trending.addEventListener('click', getTrendingGIFs);
 
 window.addEventListener('scroll', () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
   if (clientHeight + scrollTop >= scrollHeight - 5) {
     paginate += limit;
-    getGIFs(`${searchUrl}${searchTerm}&offset=${paginate}`);
+    if (searchTerm != '') {
+      getGIFs(`${searchUrl}${searchTerm}&offset=${paginate}`);
+    } else {
+      getGIFs(`${trendingUrl}&offset=${paginate}`);
+    }
   }
 });
 
@@ -38,24 +42,36 @@ function addGIFToDOM(imgSrc) {
   GIF.classList.add('gif-block');
   GIF.innerHTML = `<img src="${imgSrc}">`;
   gifContainer.appendChild(GIF);
+  GIF.onclick = gifZoom;
+}
+
+function gifZoom() {
+  alert('hey');
+}
+
+function addGIFsToDOM(srcGIFs) {
+  for (let i = 0; i < srcGIFs.data.length; i++) {
+    var imgGIF = srcGIFs.data[i].images.original.url;
+    addGIFToDOM(imgGIF);
+  }
 }
 
 function getTrendingGIFs() {
-  clearSearch();
+  clearDOM();
   getGIFs(trendingUrl);
 }
 
-function trendingBtn() {
-  clearDOM();
-  getTrendingGIFs();
-}
+// function trendingBtn() {
+//   clearDOM();
+//   getTrendingGIFs();
+// }
 
 function findGIFs() {
   searchTerm = searchBox.value;
   console.log(searchTerm);
   clearDOM();
   getGIFs(searchUrl + searchTerm);
-  // clearSearch();
+  clearSearch();
 }
 
 function getGIFs(url) {
@@ -73,12 +89,7 @@ function getGIFs(url) {
 }
 
 function clearSearch() {
-  searchTerm = '';
   searchInput.value = '';
-}
-
-function init() {
-  getTrendingGIFs();
 }
 
 function clearDOM() {
@@ -87,9 +98,6 @@ function clearDOM() {
   }
 }
 
-function addGIFsToDOM(srcGIFs) {
-  for (var i = 0; i < srcGIFs.data.length; i++) {
-    var imgGIF = srcGIFs.data[i].images.original.url;
-    addGIFToDOM(imgGIF);
-  }
+function init() {
+  getTrendingGIFs();
 }

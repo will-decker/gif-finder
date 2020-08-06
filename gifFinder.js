@@ -61,11 +61,6 @@ function getTrendingGIFs() {
   getGIFs(trendingUrl);
 }
 
-// function trendingBtn() {
-//   clearDOM();
-//   getTrendingGIFs();
-// }
-
 function findGIFs() {
   searchTerm = searchBox.value;
   console.log(searchTerm);

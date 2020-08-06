@@ -37,10 +37,11 @@ window.addEventListener('scroll', () => {
   }
 });
 
-function addGIFToDOM(imgSrc) {
+function addGIFToDOM(imgSrc, gifTitle) {
   const GIF = document.createElement('div');
   GIF.classList.add('gif-block');
-  GIF.innerHTML = `<img src="${imgSrc}">`;
+  GIF.innerHTML = `<img src="${imgSrc}">
+  <div class="gif-title">${gifTitle}</div>`;
   gifContainer.appendChild(GIF);
   GIF.onclick = gifZoom;
 }
@@ -51,8 +52,9 @@ function gifZoom() {
 
 function addGIFsToDOM(srcGIFs) {
   for (let i = 0; i < srcGIFs.data.length; i++) {
-    var imgGIF = srcGIFs.data[i].images.original.url;
-    addGIFToDOM(imgGIF);
+    let imgGIF = srcGIFs.data[i].images.original.url;
+    let titleGIF = srcGIFs.data[i].title;
+    addGIFToDOM(imgGIF, titleGIF);
   }
 }
 

@@ -10,6 +10,7 @@ header {
   top: 0;
   background-color: darkorchid;
   width: 100%;
+  z-index: 100;
 }
 
 nav {
@@ -56,7 +57,7 @@ main {
 
 #gif-grid {
   display: grid;
-  grid-gap: 8px;
+  grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: minmax(35px, 300px);
 }
@@ -92,6 +93,21 @@ main {
 
 .gif-block:hover:after {
   opacity: 0.8;
+}
+
+.gif-block .gif-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  text-align: center;
+  z-index: 1;
+}
+
+.gif-block .gif-title:hover {
+  opacity: 1;
 }
 
 footer {

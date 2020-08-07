@@ -1,1 +1,1 @@
-# gif-finder
+# GIF Finder

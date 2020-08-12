@@ -65,16 +65,13 @@ nav a {
   height: 36px;
 }
 
-.btn {
+.nav-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
   cursor: pointer;
-  background: #edae49;
   width: 100px;
   height: 100%;
-  color: #2a3050;
 }
 
 main {

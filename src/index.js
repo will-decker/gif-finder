@@ -40,7 +40,8 @@ window.addEventListener('scroll', () => {
 function addGIFToDOM(imgSrc, gifTitle) {
   const GIF = document.createElement('div');
   GIF.classList.add('gif-block');
-  GIF.innerHTML = `<img src="${imgSrc}">
+  GIF.innerHTML = `
+  <img src="${imgSrc}">
   <div class="gif-title">${gifTitle}</div>`;
   gifContainer.appendChild(GIF);
   GIF.onclick = gifZoom;
@@ -59,6 +60,7 @@ function addGIFsToDOM(srcGIFs) {
 }
 
 function getTrendingGIFs() {
+  searchTerm = '';
   clearDOM();
   getGIFs(trendingUrl);
 }

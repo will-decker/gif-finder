@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@900&family=Montserrat:wght@500&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(3, 3, 97);
+  background-color: #2a3050;
   color: white;
+  font-family: 'Montserrat', sans-serif;
 }
 
 header {
   position: fixed;
   top: 0;
-  background-color: darkorchid;
+  background-color: #00798c;
   width: 100%;
   z-index: 100;
 }
@@ -27,6 +30,9 @@ nav a {
 }
 
 .logo {
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.5625rem;
+  text-transform: uppercase;
   width: 100%;
 }
 
@@ -82,7 +88,7 @@ main {
   content: '';
   position: absolute;
   display: block;
-  background: pink;
+  background: #d1495b;
   top: 0;
   left: 0;
   width: 100%;
@@ -96,13 +102,16 @@ main {
 }
 
 .gif-block .gif-title {
+  display: flex;
+  align-items: end;
+  color: #f3eee5;
+  padding: 10px;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   opacity: 0;
-  text-align: center;
   z-index: 1;
 }
 
@@ -118,6 +127,6 @@ footer {
   color: white;
   text-align: center;
   height: 40px;
-  background-color: blueviolet;
+  background-color: #00798c;
   padding-top: 25px;
 }

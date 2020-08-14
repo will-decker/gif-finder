@@ -1,3 +1,6 @@
+import Masonry from 'masonry-layout';
+import imagesLoaded from 'imagesloaded';
+
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const gifContainer = document.getElementById('gif-grid');
@@ -57,6 +60,12 @@ function addGIFsToDOM(srcGIFs) {
     let titleGIF = srcGIFs.data[i].title;
     addGIFToDOM(imgGIF, titleGIF);
   }
+
+  imagesLoaded(gifContainer, function () {
+    var masonry = new Masonry(gifContainer, {
+      itemSelector: '.gif-block',
+    });
+  });
 }
 
 function getTrendingGIFs() {

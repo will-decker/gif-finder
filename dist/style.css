@@ -33,7 +33,7 @@ nav a {
   font-family: 'Kanit', sans-serif;
   font-size: 2rem;
   text-transform: uppercase;
-  color: #d1495b;
+  color: #edae49;
   width: 100%;
 }
 
@@ -53,9 +53,9 @@ nav a {
 
 #searchBtn {
   cursor: pointer;
-  background: #edae49;
+  background: #2a3050;
   border: none;
-  color: #2a3050;
+  color: white;
 }
 
 .nav-btn-container {
@@ -80,7 +80,7 @@ main {
   margin: 135px auto;
 }
 
-#gif-grid {
+/* #gif-grid {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -89,7 +89,7 @@ main {
 
 #gif-grid .gif-block:nth-child(5n) {
   grid-column-end: span 2;
-}
+} */
 
 #gif-grid img {
   display: flex;
@@ -101,6 +101,7 @@ main {
 .gif-block {
   cursor: pointer;
   position: relative;
+  width: 33%;
 }
 
 .gif-block::after {

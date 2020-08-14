@@ -25,5 +25,9 @@
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "imagesloaded": "^4.1.4",
+    "masonry-layout": "^4.2.2"
   }
 }

@@ -1,9 +1,7 @@
-import Masonry from 'masonry-layout';
-import imagesLoaded from 'imagesloaded';
-
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
-const gifContainer = document.getElementById('gif-grid');
+const gifGrid = document.querySelector('#gif-grid');
+const gifBlock = document.getElementsByClassName('gif-block');
 const trending = document.getElementById('trending');
 
 const apiKey = 'api_key=wgMoDU1mKp8t8xdPjuRvigmzMXxnKSyM';
@@ -46,7 +44,7 @@ function addGIFToDOM(imgSrc, gifTitle) {
   GIF.innerHTML = `
   <img src="${imgSrc}">
   <div class="gif-title">${gifTitle}</div>`;
-  gifContainer.appendChild(GIF);
+  gifGrid.appendChild(GIF);
   GIF.onclick = gifZoom;
 }
 
@@ -60,17 +58,12 @@ function addGIFsToDOM(srcGIFs) {
     let titleGIF = srcGIFs.data[i].title;
     addGIFToDOM(imgGIF, titleGIF);
   }
-
-  imagesLoaded(gifContainer, function () {
-    var masonry = new Masonry(gifContainer, {
-      itemSelector: '.gif-block',
-    });
-  });
 }
 
 function getTrendingGIFs() {
   searchTerm = '';
   clearDOM();
+  gifGrid.classList.add('images-unloaded');
   getGIFs(trendingUrl);
 }
 
@@ -78,6 +71,7 @@ function findGIFs() {
   searchTerm = searchBox.value;
   console.log(searchTerm);
   clearDOM();
+  gifGrid.classList.add('images-unloaded');
   getGIFs(searchUrl + searchTerm);
   clearSearch();
 }
@@ -101,8 +95,8 @@ function clearSearch() {
 }
 
 function clearDOM() {
-  while (gifContainer.firstChild) {
-    gifContainer.removeChild(gifContainer.firstChild);
+  while (gifGrid.firstChild) {
+    gifGrid.removeChild(gifGrid.firstChild);
   }
 }
 

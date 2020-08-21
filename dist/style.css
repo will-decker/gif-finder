@@ -80,15 +80,20 @@ main {
   margin: 135px auto;
 }
 
-/* #gif-grid {
-  display: grid;
+#gif-grid {
+  width: 100%;
+  /* display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: minmax(35px, 300px);
+  grid-auto-rows: minmax(35px, 300px); */
 }
 
-#gif-grid .gif-block:nth-child(5n) {
+/* #gif-grid .gif-block:nth-child(5n) {
   grid-column-end: span 2;
+} */
+
+/* #gif-grid.images-unloaded {
+  opacity: 0;
 } */
 
 #gif-grid img {
@@ -102,6 +107,7 @@ main {
   cursor: pointer;
   position: relative;
   width: 33%;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .gif-block::after {

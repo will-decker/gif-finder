@@ -1,3 +1,5 @@
+import Macy from 'macy';
+
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const gifGrid = document.querySelector('#gif-grid');
@@ -16,6 +18,19 @@ let trendingUrl = `${trendingEndPoint}${apiKey}&limit=${limit}`;
 
 init();
 
+var macy = Macy({
+  container: '#gif-grid',
+  trueOrder: false,
+  waitForImages: true,
+  margin: 15,
+  columns: 4,
+  breakAt: {
+    940: 3,
+    520: 2,
+    400: 1,
+  },
+});
+
 searchBtn.addEventListener('click', findGIFs);
 searchBox.addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
@@ -32,8 +47,10 @@ window.addEventListener('scroll', () => {
     paginate += limit;
     if (searchTerm != '') {
       getGIFs(`${searchUrl}${searchTerm}&offset=${paginate}`);
+      macy.reInit();
     } else {
       getGIFs(`${trendingUrl}&offset=${paginate}`);
+      macy.reInit();
     }
   }
 });
@@ -41,6 +58,7 @@ window.addEventListener('scroll', () => {
 function addGIFToDOM(imgSrc, gifTitle) {
   const GIF = document.createElement('div');
   GIF.classList.add('gif-block');
+  GIF.classList.add('hide');
   GIF.innerHTML = `
   <img src="${imgSrc}">
   <div class="gif-title">${gifTitle}</div>`;
@@ -53,17 +71,24 @@ function gifZoom() {
 }
 
 function addGIFsToDOM(srcGIFs) {
+  let isLoaded = false;
   for (let i = 0; i < srcGIFs.data.length; i++) {
-    let imgGIF = srcGIFs.data[i].images.original.url;
+    let imgGIF = srcGIFs.data[i].images.downsized.url;
     let titleGIF = srcGIFs.data[i].title;
     addGIFToDOM(imgGIF, titleGIF);
   }
+
+  macy.runOnImageLoad(function () {
+    console.log(new Date().toLocaleTimeString() + ': ' + 'Loaded');
+    macy.recalculate(true, true);
+  });
+  isLoaded = true;
+  console.log(new Date().toLocaleTimeString() + ': ' + 'Not Loaded');
 }
 
 function getTrendingGIFs() {
   searchTerm = '';
   clearDOM();
-  gifGrid.classList.add('images-unloaded');
   getGIFs(trendingUrl);
 }
 
@@ -71,7 +96,6 @@ function findGIFs() {
   searchTerm = searchBox.value;
   console.log(searchTerm);
   clearDOM();
-  gifGrid.classList.add('images-unloaded');
   getGIFs(searchUrl + searchTerm);
   clearSearch();
 }

@@ -1,9 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@900&family=Montserrat:wght@500&display=swap');
 
+/* Config */
+:root {
+  --sk-size: 40px;
+  --sk-color: rgb(241, 238, 238);
+  --darker: #163a5f;
+  --secondary: #1d566e;
+  --primary: #21aba5;
+  --highlight: #45eba5;
+}
+
+/* Utility class for centering */
+.sk-center {
+  margin: auto;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background-color: #2a3050;
+  background: var(--secondary); /* fallback for old browsers */
+  background: linear-gradient(to top, var(--primary) 0, var(--secondary) 100%);
+  background-attachment: fixed;
+  /* background-size: 100% 600vh;
+  background-repeat: repeat-y; */
   color: white;
   font-family: 'Montserrat', sans-serif;
 }
@@ -11,7 +30,7 @@ body {
 header {
   position: fixed;
   top: 0;
-  background-color: #00798c;
+  background: transparent;
   width: 100%;
   z-index: 100;
 }
@@ -33,7 +52,7 @@ nav a {
   font-family: 'Kanit', sans-serif;
   font-size: 2rem;
   text-transform: uppercase;
-  color: #edae49;
+  color: var(--highlight);
   width: 100%;
 }
 
@@ -53,7 +72,7 @@ nav a {
 
 #searchBtn {
   cursor: pointer;
-  background: #2a3050;
+  background: var(--darker);
   border: none;
   color: white;
 }
@@ -103,18 +122,28 @@ main {
   object-fit: cover;
 }
 
+.hide {
+  opacity: 0;
+}
+
 .gif-block {
   cursor: pointer;
   position: relative;
   width: 33%;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.6s ease-in-out;
 }
 
 .gif-block::after {
   content: '';
   position: absolute;
   display: block;
-  background: #d1495b;
+  background: var(--highlight); /* fallback for old browsers */
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    var(--highlight) 82%
+  );
   top: 0;
   left: 0;
   width: 100%;
@@ -124,7 +153,7 @@ main {
 }
 
 .gif-block:hover:after {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .gif-block .gif-title {
@@ -153,6 +182,71 @@ footer {
   color: white;
   text-align: center;
   height: 40px;
-  background-color: #00798c;
+  background-color: var(--darker);
   padding-top: 25px;
 }
+
+/*  Grid   */
+.sk-grid {
+  width: var(--sk-size);
+  height: var(--sk-size);
+  /* Cube positions
+   * 1 2 3
+   * 4 5 6
+   * 7 8 9
+   */
+}
+.sk-grid-cube {
+  width: 33.33%;
+  height: 33.33%;
+  background-color: var(--sk-color);
+  float: left;
+  animation: sk-grid 1.3s infinite ease-in-out;
+}
+.sk-grid-cube:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.sk-grid-cube:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.sk-grid-cube:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.sk-grid-cube:nth-child(4) {
+  animation-delay: 0.1s;
+}
+.sk-grid-cube:nth-child(5) {
+  animation-delay: 0.2s;
+}
+.sk-grid-cube:nth-child(6) {
+  animation-delay: 0.3s;
+}
+.sk-grid-cube:nth-child(7) {
+  animation-delay: 0s;
+}
+.sk-grid-cube:nth-child(8) {
+  animation-delay: 0.1s;
+}
+.sk-grid-cube:nth-child(9) {
+  animation-delay: 0.2s;
+}
+
+@keyframes sk-grid {
+  0%,
+  70%,
+  100% {
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+/* .slide-in { transform: 'translateY(0)'; opacity: 1 },
+  .hide { transform: 'translateY(100px)'; opacity: 0 }, */

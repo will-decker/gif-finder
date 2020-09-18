@@ -3,26 +3,21 @@ import Macy from 'macy';
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const gifGrid = document.querySelector('#gif-grid');
-const gifBlock = document.getElementsByClassName('gif-block');
+const gifBlocks = document.getElementsByClassName('gif-block');
 const trending = document.getElementById('trending');
 
-const apiKey = 'api_key=wgMoDU1mKp8t8xdPjuRvigmzMXxnKSyM';
 let searchTerm = '';
 const limit = 30;
 let paginate = 0;
-const giphyAPI = 'http://api.giphy.com/v1/gifs/';
-const searchEndPoint = `${giphyAPI}search?`;
-const trendingEndPoint = `${giphyAPI}trending?`;
-let searchUrl = `${searchEndPoint}${apiKey}&limit=${limit}&q=`;
-let trendingUrl = `${trendingEndPoint}${apiKey}&limit=${limit}`;
-
-init();
+const searchEndPoint = 'http://localhost:5000/api/v1/giphy-search/?';
+let searchUrl = `${searchEndPoint}limit=${limit}&q=`;
+let searchParams;
 
 var macy = Macy({
   container: '#gif-grid',
   trueOrder: false,
   waitForImages: true,
-  margin: 15,
+  margin: 12,
   columns: 4,
   breakAt: {
     940: 3,
@@ -30,6 +25,8 @@ var macy = Macy({
     400: 1,
   },
 });
+
+// init();
 
 searchBtn.addEventListener('click', findGIFs);
 searchBox.addEventListener('keypress', function (e) {
@@ -45,12 +42,11 @@ window.addEventListener('scroll', () => {
 
   if (clientHeight + scrollTop >= scrollHeight - 5) {
     paginate += limit;
+    searchParams = `${searchUrl}${searchTerm}&offset=${paginate}`;
     if (searchTerm != '') {
-      getGIFs(`${searchUrl}${searchTerm}&offset=${paginate}`);
-      macy.reInit();
+      getGIFs(searchParams);
     } else {
       getGIFs(`${trendingUrl}&offset=${paginate}`);
-      macy.reInit();
     }
   }
 });
@@ -70,8 +66,13 @@ function gifZoom() {
   alert('hey');
 }
 
+function gifsReveal() {
+  for (var i = 0; i < gifBlocks.length; i++) {
+    gifBlocks[i].classList.remove('hide');
+  }
+}
+
 function addGIFsToDOM(srcGIFs) {
-  let isLoaded = false;
   for (let i = 0; i < srcGIFs.data.length; i++) {
     let imgGIF = srcGIFs.data[i].images.downsized.url;
     let titleGIF = srcGIFs.data[i].title;
@@ -79,24 +80,24 @@ function addGIFsToDOM(srcGIFs) {
   }
 
   macy.runOnImageLoad(function () {
-    console.log(new Date().toLocaleTimeString() + ': ' + 'Loaded');
+    gifsReveal();
     macy.recalculate(true, true);
   });
-  isLoaded = true;
-  console.log(new Date().toLocaleTimeString() + ': ' + 'Not Loaded');
 }
 
 function getTrendingGIFs() {
   searchTerm = '';
   clearDOM();
   getGIFs(trendingUrl);
+  macy.reInit();
 }
 
 function findGIFs() {
   searchTerm = searchBox.value;
-  console.log(searchTerm);
   clearDOM();
-  getGIFs(searchUrl + searchTerm);
+  searchParams = `${searchUrl}${searchTerm}&offset=${paginate}`;
+  getGIFs(searchParams);
+  macy.reInit();
   clearSearch();
 }
 
@@ -107,7 +108,6 @@ function getGIFs(url) {
   xhr.onload = function () {
     if (this.status == 200) {
       const dataGIFs = JSON.parse(this.responseText);
-
       addGIFsToDOM(dataGIFs);
     }
   };

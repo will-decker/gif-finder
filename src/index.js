@@ -12,6 +12,8 @@ let paginate = 0;
 const searchEndPoint = 'http://localhost:5000/api/v1/giphy-search/?';
 let searchUrl = `${searchEndPoint}limit=${limit}&q=`;
 let searchParams;
+const trendingEndPoint = 'http://localhost:5000/api/v1/giphy-trending/?';
+let trendingUrl = `${trendingEndPoint}limit=${limit}`;
 
 var macy = Macy({
   container: '#gif-grid',
@@ -26,7 +28,7 @@ var macy = Macy({
   },
 });
 
-// init();
+init();
 
 searchBtn.addEventListener('click', findGIFs);
 searchBox.addEventListener('keypress', function (e) {

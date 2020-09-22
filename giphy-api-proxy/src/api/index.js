@@ -1,6 +1,7 @@
 const express = require('express');
 
-const giphy = require('./giphy-search');
+const search = require('./giphy-search');
+const trending = require('./giphy-trending');
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/giphy-search', giphy);
+router.use('/giphy-search', search);
+router.use('/giphy-trending', trending);
 
 module.exports = router;

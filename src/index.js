@@ -9,10 +9,12 @@ const trending = document.getElementById('trending');
 let searchTerm = '';
 const limit = 30;
 let paginate = 0;
-const searchEndPoint = 'http://localhost:5000/api/v1/giphy-search/?';
+const searchEndPoint =
+  'https://giphy-api-proxy.vercel.app/api/v1/giphy-search/?';
 let searchUrl = `${searchEndPoint}limit=${limit}&q=`;
 let searchParams;
-const trendingEndPoint = 'http://localhost:5000/api/v1/giphy-trending/?';
+const trendingEndPoint =
+  'https://giphy-api-proxy.vercel.app/api/v1/giphy-trending/?';
 let trendingUrl = `${trendingEndPoint}limit=${limit}`;
 
 var macy = Macy({

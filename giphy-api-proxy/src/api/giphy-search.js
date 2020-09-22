@@ -24,6 +24,7 @@ router.get('/', async (req, res) => {
     });
 
     const { data } = await axios.get(`${BASE_URL}${params}`);
+    res.setHeader('access-control-allow-origin', '*');
     res.json(data);
   } catch (error) {
     next(error);

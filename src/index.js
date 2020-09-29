@@ -1,21 +1,20 @@
 import Macy from 'macy';
 
+const header = document.querySelector('header');
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const gifGrid = document.querySelector('#gif-grid');
 const gifBlocks = document.getElementsByClassName('gif-block');
 const trending = document.getElementById('trending');
+const loading = document.querySelector('.loading');
+const title = document.querySelector('.title');
 
 let searchTerm = '';
-const limit = 30;
+let limit = 30;
 let paginate = 0;
-const searchEndPoint =
-  'https://giphy-api-proxy.vercel.app/api/v1/giphy-search/?';
-let searchUrl = `${searchEndPoint}limit=${limit}&q=`;
+let searchUrl = 'https://giphy-api-proxy.vercel.app/api/v1/giphy-search/?q=';
 let searchParams;
-const trendingEndPoint =
-  'https://giphy-api-proxy.vercel.app/api/v1/giphy-trending/?';
-let trendingUrl = `${trendingEndPoint}limit=${limit}`;
+let trendingUrl = 'https://giphy-api-proxy.vercel.app/api/v1/giphy-trending/?';
 
 var macy = Macy({
   container: '#gif-grid',
@@ -46,12 +45,18 @@ window.addEventListener('scroll', () => {
 
   if (clientHeight + scrollTop >= scrollHeight - 5) {
     paginate += limit;
-    searchParams = `${searchUrl}${searchTerm}&offset=${paginate}`;
+    searchParams = `${searchUrl}${searchTerm}&limit=${limit}&offset=${paginate}`;
     if (searchTerm != '') {
       getGIFs(searchParams);
     } else {
-      getGIFs(`${trendingUrl}&offset=${paginate}`);
+      getGIFs(`${trendingUrl}limit=${limit}&offset=${paginate}`);
     }
+  }
+
+  if (scrollTop == 0) {
+    header.classList.remove('solid-header-bg');
+  } else {
+    header.classList.add('solid-header-bg');
   }
 });
 
@@ -66,16 +71,6 @@ function addGIFToDOM(imgSrc, gifTitle) {
   GIF.onclick = gifZoom;
 }
 
-function gifZoom() {
-  alert('hey');
-}
-
-function gifsReveal() {
-  for (var i = 0; i < gifBlocks.length; i++) {
-    gifBlocks[i].classList.remove('hide');
-  }
-}
-
 function addGIFsToDOM(srcGIFs) {
   for (let i = 0; i < srcGIFs.data.length; i++) {
     let imgGIF = srcGIFs.data[i].images.downsized.url;
@@ -85,21 +80,26 @@ function addGIFsToDOM(srcGIFs) {
 
   macy.runOnImageLoad(function () {
     gifsReveal();
+    loading.style.display = 'none';
     macy.recalculate(true, true);
   });
+
+  loading.style.display = '';
 }
 
 function getTrendingGIFs() {
   searchTerm = '';
   clearDOM();
-  getGIFs(trendingUrl);
+  title.textContent = 'Trending';
+  getGIFs(`${trendingUrl}limit=${limit}`);
   macy.reInit();
 }
 
 function findGIFs() {
   searchTerm = searchBox.value;
   clearDOM();
-  searchParams = `${searchUrl}${searchTerm}&offset=${paginate}`;
+  title.textContent = `Search results for "${searchTerm}"`;
+  searchParams = `${searchUrl}${searchTerm}&limit=${limit}&offset=${paginate}`;
   getGIFs(searchParams);
   macy.reInit();
   clearSearch();
@@ -118,6 +118,16 @@ function getGIFs(url) {
   xhr.send();
 }
 
+function gifZoom() {
+  alert('hey');
+}
+
+function gifsReveal() {
+  for (var i = 0; i < gifBlocks.length; i++) {
+    gifBlocks[i].classList.remove('hide');
+  }
+}
+
 function clearSearch() {
   searchInput.value = '';
 }
@@ -128,6 +138,16 @@ function clearDOM() {
   }
 }
 
+function getBrowserWidth() {
+  const { clientWidth } = document.documentElement;
+
+  if (clientWidth > 2000) {
+    limit = 50;
+    return;
+  }
+}
+
 function init() {
+  getBrowserWidth();
   getTrendingGIFs();
 }

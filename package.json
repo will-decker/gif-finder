@@ -1,7 +1,7 @@
 {
   "name": "gif-finder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web app for searching GIFs on Giphy.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",

@@ -1,6 +1,7 @@
 import Macy from 'macy';
 
 const header = document.querySelector('header');
+const footer = document.querySelector('footer');
 const searchBox = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const gifGrid = document.querySelector('#gif-grid');
@@ -145,6 +146,8 @@ function getBrowserWidth() {
     limit = 50;
     return;
   }
+
+  footer.style.width = `${clientWidth}px`;
 }
 
 function init() {

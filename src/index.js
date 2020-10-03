@@ -1,4 +1,5 @@
 import Macy from 'macy';
+import { showLightbox, listenForLightboxClosed } from './lightbox';
 
 const header = document.querySelector('header');
 const footer = document.querySelector('footer');
@@ -61,22 +62,26 @@ window.addEventListener('scroll', () => {
   }
 });
 
-function addGIFToDOM(imgSrc, gifTitle) {
+gifClicked(showLightbox);
+
+function addGIFToDOM(smallSrc, lrgSrc, gifTitle) {
   const GIF = document.createElement('div');
   GIF.classList.add('gif-block');
   GIF.classList.add('hide');
   GIF.innerHTML = `
-  <img src="${imgSrc}">
-  <div class="gif-title">${gifTitle}</div>`;
+  <a href="${lrgSrc}">
+  <img src="${smallSrc}">
+  <div class="gif-title">${gifTitle}</div>
+  </a>`;
   gifGrid.appendChild(GIF);
-  GIF.onclick = gifZoom;
 }
 
 function addGIFsToDOM(srcGIFs) {
   for (let i = 0; i < srcGIFs.data.length; i++) {
-    let imgGIF = srcGIFs.data[i].images.downsized.url;
+    let smallGIF = srcGIFs.data[i].images.downsized.url;
+    let lrgGIF = srcGIFs.data[i].images.original.url;
     let titleGIF = srcGIFs.data[i].title;
-    addGIFToDOM(imgGIF, titleGIF);
+    addGIFToDOM(smallGIF, lrgGIF, titleGIF);
   }
 
   macy.runOnImageLoad(function () {
@@ -119,8 +124,14 @@ function getGIFs(url) {
   xhr.send();
 }
 
-function gifZoom() {
-  alert('hey');
+function gifClicked(handler) {
+  gifGrid.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = e.target;
+    if (target.tagName === 'DIV') {
+      handler(target.parentElement.href);
+    }
+  });
 }
 
 function gifsReveal() {
@@ -152,5 +163,6 @@ function getBrowserWidth() {
 
 function init() {
   getBrowserWidth();
+  listenForLightboxClosed();
   getTrendingGIFs();
 }

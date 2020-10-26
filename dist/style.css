@@ -38,7 +38,7 @@ header {
   background: transparent;
   width: 100%;
   z-index: 2;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 nav {
@@ -87,19 +87,11 @@ nav a {
   max-width: 500px;
   width: 100%;
   border: none;
+  border-radius: 5px 0 0 5px;
 }
 
 #searchBtn {
-  cursor: pointer;
-  background: var(--darker);
-  border: none;
-  padding: 0 2rem;
-  color: white;
-  transition: all 0.3s ease-in-out;
-}
-
-#searchBtn:hover {
-  background: var(--highlight);
+  border-radius: 0 5px 5px 0;
 }
 
 .nav-btn-container {
@@ -114,8 +106,23 @@ nav a {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 100px;
+  /* width: 100px; */
   height: 100%;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.btn {
+  cursor: pointer;
+  background: var(--darker);
+  border: none;
+  padding: 0 2rem;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background: var(--highlight);
 }
 
 main {

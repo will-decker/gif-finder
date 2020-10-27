@@ -150,19 +150,19 @@ function clearDOM() {
   }
 }
 
-function getBrowserWidth() {
-  const { clientWidth } = document.documentElement;
+// function getBrowserWidth() {
+//   const { clientWidth } = document.documentElement;
 
-  if (clientWidth > 2000) {
-    limit = 50;
-    return;
-  }
+//   if (clientWidth > 2000) {
+//     limit = 50;
+//     return;
+//   }
 
-  footer.style.width = `${clientWidth}px`;
-}
+//   footer.style.width = `${clientWidth}px`;
+// }
 
 function init() {
-  getBrowserWidth();
+  // getBrowserWidth();
   listenForLightboxClosed();
   getTrendingGIFs();
 }

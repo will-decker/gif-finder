@@ -196,7 +196,7 @@ main {
 .gif-block .gif-title {
   display: flex;
   align-items: flex-end;
-  color: #f3eee5;
+  color: var(--secondary);
   padding: 10px;
   position: absolute;
   top: 0;

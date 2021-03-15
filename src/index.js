@@ -162,7 +162,6 @@ function clearDOM() {
 // }
 
 function init() {
-  // getBrowserWidth();
   listenForLightboxClosed();
   getTrendingGIFs();
 }

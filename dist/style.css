@@ -45,9 +45,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1440px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 35px 45px 18px;
+  padding: 35px 16px 18px;
 }
 
 nav a {
